@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Office Hours Booking</title>
+</head>
+<body>
+  <h1>Office Hours Booking Admin Panel</h1>
+  <label for="slot">Slot:</label>
+  <input type="text" id="slot" placeholder="Enter slot (e.g., 2025-01-24 09:00)" required>
+  <button onclick="confirmSlot()">Confirm Slot</button>
+  <button onclick="cancelSlot()">Cancel Slot</button>
+
+  <script>
+    async function postData(url, data) {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      return response.json();
+    }
+
+    async function confirmSlot() {
+      const slot = document.getElementById('slot').value;
+      const result = await postData('https://your-app-url/confirmSlot', { slot });
+      alert(result.message || result.error);
+    }
+
+    async function cancelSlot() {
+      const slot = document.getElementById('slot').value;
+      const result = await postData('https://your-app-url/cancelSlot', { slot });
+      alert(result.message || result.error);
+    }
+  </script>
+</body>
+</html>
